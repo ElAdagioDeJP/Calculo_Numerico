@@ -34,19 +34,26 @@ def main(page: Page):
         def valid(e):
             if(txt.value != ''):
                 if not(txt.value[-1] in ['0','1','2','3','4','5','6','7','8','9']):
-                    txt.value = txt.value[0:-2]
+                    txt.value = txt.value[0:-1]
                     txt.update()
                 
-        txt = ft.TextField(hint_text='Ingrese un Numero',on_change=valid)
+        txt = ft.TextField(label='Ingrese un Numero',on_change=valid)
         
         desde = ft.Dropdown(options=[
-                        ft.dropdown.Option('Hexadecimal')
+                        ft.dropdown.Option('Hexadecimal'),
+                        ft.dropdown.Option('Decimal'),
+                        ft.dropdown.Option('Octal'),
+                        ft.dropdown.Option('Cuaternario'),
+                        ft.dropdown.Option('Binario')
                         #Agregar mas opciones
-                        ],width=150)
+                        ],width=150,hint_text='Hexadecimal')
         hacia = ft.Dropdown(options=[
-                        ft.dropdown.Option('Dec')
-                        #Agregar mas opciones
-                        ],width=150)
+                        ft.dropdown.Option('Hexadecimal'),
+                        ft.dropdown.Option('Decimal'),
+                        ft.dropdown.Option('Octal'),
+                        ft.dropdown.Option('Cuaternario'),
+                        ft.dropdown.Option('Binario')
+                        ],width=150,hint_text='Hexadecimal')
         
         if page.route == "/Traductor":
             page.views.append(
