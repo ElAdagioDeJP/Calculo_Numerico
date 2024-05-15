@@ -10,6 +10,7 @@ def main(page: Page):
     page.window_width = 600
     page.window_height = 500
     
+    
     def route_change(e):
         page.views.clear()
         page.views.append(
@@ -32,13 +33,14 @@ def main(page: Page):
             )
         )
         def valid(e):
-            if(txt.value != ''):
-                if not(txt.value[-1] in ['0','1','2','3','4','5','6','7','8','9']):
-                    txt.value = txt.value[0:-1]
-                    txt.update()
+            if(entrada.value != ''):
+                if not(entrada.value[-1] in ['0','1','2','3','4','5','6','7','8','9']):
+                    entrada.value = entrada.value[0:-1]
+                    entrada.update()
                 
-        txt = ft.TextField(label='Ingrese un Numero',on_change=valid)
-        
+        entrada = ft.TextField(label='Ingrese un Numero',on_change=valid)
+        salida = ft.TextField(label='Ingrese un Numero',on_change=valid)
+    
         desde = ft.Dropdown(options=[
                         ft.dropdown.Option('Hexadecimal'),
                         ft.dropdown.Option('Decimal'),
@@ -46,14 +48,14 @@ def main(page: Page):
                         ft.dropdown.Option('Cuaternario'),
                         ft.dropdown.Option('Binario')
                         #Agregar mas opciones
-                        ],width=150,hint_text='Hexadecimal')
+                        ],width=200,hint_text='Hexadecimal')
         hacia = ft.Dropdown(options=[
                         ft.dropdown.Option('Hexadecimal'),
                         ft.dropdown.Option('Decimal'),
                         ft.dropdown.Option('Octal'),
                         ft.dropdown.Option('Cuaternario'),
                         ft.dropdown.Option('Binario')
-                        ],width=150,hint_text='Hexadecimal')
+                        ],width=200,hint_text='Hexadecimal')
         
         if page.route == "/Traductor":
             page.views.append(
@@ -63,13 +65,17 @@ def main(page: Page):
                         AppBar(title=Text("Traductor Numerico"), bgcolor=colors.SURFACE_VARIANT),
                         ft.Column([
                             ft.Row([
-                                txt,
+                                entrada,
                                 ElevatedButton("Ejecutar", on_click=lambda _: page.go("/Traductor"))
                             ],alignment='center'),
                             ft.Row([
                                 desde,hacia
 
-                            ])
+                            ],alignment='center'),
+                            ft.Row([
+                                ElevatedButton("Limpiar", on_click=lambda _: page.go("/Traductor")),
+                                salida
+                            ],alignment='center')
                             
                     ],alignment='center',height=page.width/3)
                         
