@@ -20,7 +20,7 @@ def main(page: Page):
                     AppBar(title=Text(f"Bienvenidos al Matematiqueitor NumericoGauseal "), bgcolor=colors.SURFACE_VARIANT),
                     ft.Column([
                         ft.Row([
-                            ft.Image('c:\\Users\\ElAdagioDeJP\\Pictures\\Trabajos\\Stonks.webp',width=250),
+                            ft.Image('c:\\Users\\ElAdagioDeJP\\Pictures\\Trabajos\\notstonk.jpg',width=250),
                         ],alignment='center'),
                         ft.Row([
                             ElevatedButton("Traductor Numerico", on_click=lambda _: page.go("/Traductor")),
@@ -39,23 +39,25 @@ def main(page: Page):
                     entrada.update()
                 
         entrada = ft.TextField(label='Ingrese un Numero',on_change=valid)
-        salida = ft.TextField(label='Ingrese un Numero',on_change=valid)
+        salida = ft.TextField(label='Salida',on_change=valid)
     
         desde = ft.Dropdown(options=[
                         ft.dropdown.Option('Hexadecimal'),
                         ft.dropdown.Option('Decimal'),
                         ft.dropdown.Option('Octal'),
                         ft.dropdown.Option('Cuaternario'),
+                        ft.dropdown.Option('Terceario'),
                         ft.dropdown.Option('Binario')
                         #Agregar mas opciones
-                        ],width=200,hint_text='Hexadecimal')
+                        ],width=200,hint_text='Hexadecimal',label='De')
         hacia = ft.Dropdown(options=[
                         ft.dropdown.Option('Hexadecimal'),
                         ft.dropdown.Option('Decimal'),
                         ft.dropdown.Option('Octal'),
                         ft.dropdown.Option('Cuaternario'),
+                        ft.dropdown.Option('Terceario'),
                         ft.dropdown.Option('Binario')
-                        ],width=200,hint_text='Hexadecimal')
+                        ],width=200,hint_text='Hexadecimal',label='A')
         
         if page.route == "/Traductor":
             page.views.append(
@@ -65,18 +67,16 @@ def main(page: Page):
                         AppBar(title=Text("Traductor Numerico"), bgcolor=colors.SURFACE_VARIANT),
                         ft.Column([
                             ft.Row([
-                                entrada,
+                                desde,hacia
+                            ],alignment='center'),
+                            ft.Row([
+                                entrada,salida,
+                                ],alignment='center'),
+                            ft.Row([
+                                ElevatedButton("Ramdon", on_click=lambda _: page.go("/Traductor")),
+                                ElevatedButton("Limpiar", on_click=lambda _: page.go("/Traductor")),
                                 ElevatedButton("Ejecutar", on_click=lambda _: page.go("/Traductor"))
                             ],alignment='center'),
-                            ft.Row([
-                                desde,hacia
-
-                            ],alignment='center'),
-                            ft.Row([
-                                ElevatedButton("Limpiar", on_click=lambda _: page.go("/Traductor")),
-                                salida
-                            ],alignment='center')
-                            
                     ],alignment='center',height=page.width/3)
                         
                     ],
