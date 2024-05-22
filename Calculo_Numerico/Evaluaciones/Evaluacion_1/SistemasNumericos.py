@@ -1,3 +1,10 @@
+
+class SistemasNumericos:
+    def __init__(self,entrada,desde,hacia):
+        self.entrada = entrada
+        self.desde = desde
+        self.hacia = hacia
+        print(self.entrada)
 """n = 24
 def decimal_binario(n,ls = []):
     while n > 0:
@@ -40,10 +47,14 @@ def decimal_hexadecimal(n,ls = []):
 a = decimal_hexadecimal(n)
 cadena = ''.join(str(i) for i in a)
 """
-def convierte():
-	numero = input('Introduce un número:\n')
-	sistema = int(input('Introduce un sistema de conversión:\n'))
-	print(int(numero, sistema))
-hex(10000)
 
-convierte()
+numero = input('Introduce un número:\n')
+sistema = int(input('Introduce un sistema de conversión:\n'))
+a =int(numero, sistema)
+print(a)
+b = hex(a)
+print(b)
+c = int(b, 16)
+
+bin(a)
+oct(a)

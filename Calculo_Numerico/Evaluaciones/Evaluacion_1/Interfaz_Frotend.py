@@ -1,8 +1,10 @@
-
 import flet
 from flet import AppBar, ElevatedButton, Page, Text, View, colors
 
 import flet as ft
+
+from SistemasNumericos import SistemasNumericos
+
 
 def main(page: Page):
     page.title = "Matematiqueitor NumericoGauseal"
@@ -32,15 +34,14 @@ def main(page: Page):
                 ],horizontal_alignment= ft.alignment.bottom_center
             )
         )
-        def valid(e):
-            if(entrada.value != ''):
-                if not(entrada.value[-1] in ['0','1','2','3','4','5','6','7','8','9']):
-                    entrada.value = entrada.value[0:-1]
-                    entrada.update()
-                
-        entrada = ft.TextField(label='Ingrese un Numero',on_change=valid)
-        salida = ft.TextField(label='Salida',on_change=valid)
-    
+        
+        
+        def Click(e):
+            sn = SistemasNumericos(entrada.value, desde.value, hacia.value)
+        
+        entrada = ft.TextField(label='Ingrese un Numero')
+        salida = ft.TextField(label='Salida',disabled=True)
+
         desde = ft.Dropdown(options=[
                         ft.dropdown.Option('Hexadecimal'),
                         ft.dropdown.Option('Decimal'),
@@ -75,7 +76,7 @@ def main(page: Page):
                             ft.Row([
                                 ElevatedButton("Ramdon", on_click=lambda _: page.go("/Traductor")),
                                 ElevatedButton("Limpiar", on_click=lambda _: page.go("/Traductor")),
-                                ElevatedButton("Ejecutar", on_click=lambda _: page.go("/Traductor"))
+                                ElevatedButton("Ejecutar", on_click=Click)
                             ],alignment='center'),
                     ],alignment='center',height=page.width/3)
                         
