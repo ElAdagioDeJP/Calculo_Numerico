@@ -20,7 +20,7 @@ def main(page: Page):
                     AppBar(title=Text(f"Bienvenidos al Matematiqueitor NumericoGauseal "), bgcolor=colors.SURFACE_VARIANT),
                     ft.Column([
                         ft.Row([
-                            ft.Image('c:\\Users\\ElAdagioDeJP\\Pictures\\Trabajos\\notstonk.jpg',width=250),
+                            ft.Image('..\\Imagenes\\notstonk.jpg',width=250),
                         ],alignment='center'),
                         ft.Row([
                             ElevatedButton("Traductor Numerico", on_click=lambda _: page.go("/Traductor")),

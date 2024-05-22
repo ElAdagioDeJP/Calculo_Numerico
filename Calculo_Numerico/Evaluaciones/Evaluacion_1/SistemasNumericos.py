@@ -1,4 +1,4 @@
-n = 24
+"""n = 24
 def decimal_binario(n,ls = []):
     while n > 0:
         ls.append(n % 2)
@@ -39,10 +39,11 @@ def decimal_hexadecimal(n,ls = []):
     return ls[::-1]
 a = decimal_hexadecimal(n)
 cadena = ''.join(str(i) for i in a)
-
+"""
 def convierte():
 	numero = input('Introduce un número:\n')
 	sistema = int(input('Introduce un sistema de conversión:\n'))
 	print(int(numero, sistema))
+hex(10000)
 
 convierte()
