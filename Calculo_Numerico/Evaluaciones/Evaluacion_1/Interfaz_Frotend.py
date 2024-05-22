@@ -5,6 +5,8 @@ import flet as ft
 
 from SistemasNumericos import SistemasNumericos
 
+from Gauss_Jordan import Gauss_Jordan
+
 
 def main(page: Page):
     page.title = "Matematiqueitor NumericoGauseal"
@@ -61,6 +63,7 @@ def main(page: Page):
             Separador.clear()
             Matricular.controls = []
             page.update()
+        
         def Matriz_Random(e):
             for control in Separador:
                 if isinstance(control, ft.Row):
@@ -97,19 +100,29 @@ def main(page: Page):
             print(Matricular)
             page.update()
         
-        def Enviar_Matriz():
+        def Enviar_Matriz(e):
             datos = []
-            for control in Matricular:
+            for control in Separador:
                 if isinstance(control, ft.Row):
                     fila = []
                     for txt in control.controls:
                         if isinstance(txt, ft.TextField):
                             fila.append(float(txt.value))
                     datos.append(fila)
-            return datos
+            gj = Gauss_Jordan()
+            gj.set_Matriz(datos)
+            solucion = gj.gaussJordan()
+            for i, value in enumerate(solucion, start=1):
+                text = ft.Text(f"X{i} = {round(value,2)}", color="black",)
+                fila_res.controls.append(text)
+            page.update()
+            
+        
         
         entrada = ft.TextField(label='Ingrese un Numero')
         salida = ft.TextField(label='Salida',disabled=True)
+        
+        
 
         desde = ft.Dropdown(options=[
                         ft.dropdown.Option('Hexadecimal'),
@@ -166,7 +179,8 @@ def main(page: Page):
                         ],width=200,label='Tamaño de la Matriz', on_change=generar_matriz)
         
         
-    
+        fila_res = ft.Row(spacing=10, 
+                                 alignment=ft.MainAxisAlignment.CENTER)
         
         
         if page.route == "/Gauss-Jordan":
@@ -180,8 +194,9 @@ def main(page: Page):
                                 tamano_Matriz
                             ],alignment='center'),
                             ft.Row([
-                                Matricular
+                                Matricular,
                                 ],alignment='center'),
+                            fila_res,
                             ft.Row([
                                 ElevatedButton("Ramdon", on_click=Matriz_Random),
                                 ElevatedButton("Limpiar", on_click = Limpiar),
