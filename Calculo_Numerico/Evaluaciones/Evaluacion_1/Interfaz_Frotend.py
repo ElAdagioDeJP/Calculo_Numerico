@@ -38,6 +38,8 @@ def main(page: Page):
         
         def Click(e):
             sn = SistemasNumericos(entrada.value, desde.value, hacia.value)
+            salida.value = sn.Resolver()
+            page.update()
             
         def Limpiar(e):
             entrada.value = ''
@@ -109,7 +111,7 @@ def main(page: Page):
                         ],width=200,hint_text='2x2',label='Tamaño de la Matriz')
         
         
-        num_matriz = ft.TextField(label='')
+        num_matriz = ft.TextField(label='',height = 30, width= 30, text_size=10)
         
         
         if page.route == "/Gauss-Jordan":
