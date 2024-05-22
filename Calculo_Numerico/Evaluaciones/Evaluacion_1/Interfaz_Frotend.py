@@ -46,8 +46,37 @@ def main(page: Page):
             salida.value = ''
             desde.value = ''
             hacia.value = ''
-            tamano_Matriz.value = ''
-            num_matriz.value = ''
+            for control in Separador:
+                if isinstance(control, ft.Row):
+                    for txt in control.controls:
+                        if isinstance(txt, ft.TextField):
+                            txt.value =""
+            Matricular.update()
+            page.update()
+            page.update()
+        
+        Separador = []
+        Matricular = ft.Column([])
+        def generar_matriz(e):
+            v = tamano_Matriz.value[:-2]
+            v = int(v)
+            value = v
+            if not value or int(value) <= 0:
+                #v.value = ""
+                return
+            n = int(value)
+            
+            for i in range(n):
+                contenedores_filas = []
+                for j in range(n):
+                    txt = ft.TextField(width=50, 
+                                color=ft.colors.BLACK,
+                                text_align=ft.TextAlign.CENTER)
+                    contenedores_filas.append(txt)
+                Separador.append(
+                ft.Row(controls=contenedores_filas))
+            page.update()
+            Matricular.controls = Separador
             page.update()
         
         entrada = ft.TextField(label='Ingrese un Numero')
@@ -111,7 +140,7 @@ def main(page: Page):
                         ],width=200,hint_text='2x2',label='Tamaño de la Matriz')
         
         
-        num_matriz = ft.TextField(label='',height = 30, width= 30, text_size=10)
+        num_matriz = ft.TextField(height = 50, width= 50, text_size=15, text_align=ft.TextAlign.CENTER)
         
         
         if page.route == "/Gauss-Jordan":
@@ -125,15 +154,15 @@ def main(page: Page):
                                 tamano_Matriz
                             ],alignment='center'),
                             ft.Row([
-                                num_matriz
+                                Matricular
                                 ],alignment='center'),
                             ft.Row([
                                 ElevatedButton("Ramdon", on_click=lambda _: page.go("/Traductor")),
-                                ElevatedButton("Limpiar", on_click=Limpiar),
-                                ElevatedButton("Ejecutar", on_click=lambda _: page.go("/Traductor"))
+                                ElevatedButton("Limpiar", on_click = Limpiar),
+                                ElevatedButton("Ejecutar", on_click = generar_matriz)
                             ],alignment='center'),
                             
-                    ],alignment='center',height=page.width/3)
+                    ],alignment='center')
                         
                     ],
                 )
