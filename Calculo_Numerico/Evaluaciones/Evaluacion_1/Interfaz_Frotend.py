@@ -38,6 +38,15 @@ def main(page: Page):
         
         def Click(e):
             sn = SistemasNumericos(entrada.value, desde.value, hacia.value)
+            
+        def Limpiar(e):
+            entrada.value = ''
+            salida.value = ''
+            desde.value = ''
+            hacia.value = ''
+            tamano_Matriz.value = ''
+            num_matriz.value = ''
+            page.update()
         
         entrada = ft.TextField(label='Ingrese un Numero')
         salida = ft.TextField(label='Salida',disabled=True)
@@ -75,7 +84,7 @@ def main(page: Page):
                                 ],alignment='center'),
                             ft.Row([
                                 ElevatedButton("Ramdon", on_click=lambda _: page.go("/Traductor")),
-                                ElevatedButton("Limpiar", on_click=lambda _: page.go("/Traductor")),
+                                ElevatedButton("Limpiar", on_click=Limpiar),
                                 ElevatedButton("Ejecutar", on_click=Click)
                             ],alignment='center'),
                     ],alignment='center',height=page.width/3)
@@ -85,12 +94,44 @@ def main(page: Page):
             )
         page.update()
         
+        tamano_Matriz = ft.Dropdown(options=[
+                        ft.dropdown.Option('1x1'),
+                        ft.dropdown.Option('2x2'),
+                        ft.dropdown.Option('3x3'),
+                        ft.dropdown.Option('4x4'),
+                        ft.dropdown.Option('5x5'),
+                        ft.dropdown.Option('6x6'),
+                        ft.dropdown.Option('7x7'),
+                        ft.dropdown.Option('8x8'),
+                        ft.dropdown.Option('9x9'),
+                        ft.dropdown.Option('10x10')
+                        #Agregar mas opciones
+                        ],width=200,hint_text='2x2',label='Tamaño de la Matriz')
+        
+        
+        num_matriz = ft.TextField(label='')
+        
+        
         if page.route == "/Gauss-Jordan":
             page.views.append(
                 View(
                     "/Gauss-Jordan",
                     [
                         AppBar(title=Text("Gauss-Jordan"), bgcolor=colors.SURFACE_VARIANT),
+                        ft.Column([
+                            ft.Row([
+                                tamano_Matriz
+                            ],alignment='center'),
+                            ft.Row([
+                                num_matriz
+                                ],alignment='center'),
+                            ft.Row([
+                                ElevatedButton("Ramdon", on_click=lambda _: page.go("/Traductor")),
+                                ElevatedButton("Limpiar", on_click=Limpiar),
+                                ElevatedButton("Ejecutar", on_click=lambda _: page.go("/Traductor"))
+                            ],alignment='center'),
+                            
+                    ],alignment='center',height=page.width/3)
                         
                     ],
                 )
