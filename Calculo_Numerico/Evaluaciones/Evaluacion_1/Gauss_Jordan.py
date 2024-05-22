@@ -1,26 +1,6 @@
 import numpy as np
 
 def gaussJordan(a, b):
-    """
-    Realiza el método de Gauss-Jordan para resolver un sistema de ecuaciones lineales.
-
-    Parámetros:
-    - a: numpy.array, matriz de coeficientes del sistema de ecuaciones.
-    - b: numpy.array, vector de términos independientes del sistema de ecuaciones.
-
-    Retorna:
-    - x: numpy.array, vector solución del sistema de ecuaciones.
-
-    Ejemplo de uso:
-    a = np.array([[55.8, 20.4, 17.1, 18.5, 19.2],
-                  [7.8, 52.1, 12.3, 13.9, 18.5],
-                  [16.4, 11.5, 46.1, 11.5, 21.3],
-                  [11.7, 9.2, 14.1, 47.0, 10.4],
-                  [8.3, 6.8, 10.4, 9.1, 30.6]])
-    b = np.array([2500, 2000, 2500, 2000, 1000])
-    x = gaussJordan(a, b)
-    print(x)
-    """
     n, _ = np.shape(a)
     A = np.c_[a, b]
     for i in range(n):
@@ -34,12 +14,6 @@ def gaussJordan(a, b):
     return x
 
 def main():
-    """
-    Función principal que realiza el cálculo del rango y la solución del sistema de ecuaciones.
-
-    Ejemplo de uso:
-    main()
-    """
     a = np.array([[55.8, 20.4, 17.1, 18.5, 19.2],
                   [7.8, 52.1, 12.3, 13.9, 18.5],
                   [16.4, 11.5, 46.1, 11.5, 21.3],

@@ -1,6 +1,6 @@
 import flet
 from flet import AppBar, ElevatedButton, Page, Text, View, colors
-
+import random
 import flet as ft
 
 from SistemasNumericos import SistemasNumericos
@@ -35,29 +35,46 @@ def main(page: Page):
             )
         )
         
-        
+        def Ramdon_sis(e):
+            sn = SistemasNumericos(entrada.value, desde.value, hacia.value)
+            entrada.value = sn.Ramdom()
+            page.update()
+            
         def Click(e):
             sn = SistemasNumericos(entrada.value, desde.value, hacia.value)
             salida.value = sn.Resolver()
             page.update()
             
-        def Limpiar(e):
+        def Limpiar_sis(e):
             entrada.value = ''
             salida.value = ''
-            desde.value = ''
-            hacia.value = ''
+            page.update()
+        
+        def Limpiar(e):
+            tamano_Matriz.value = ''
             for control in Separador:
                 if isinstance(control, ft.Row):
                     for txt in control.controls:
                         if isinstance(txt, ft.TextField):
                             txt.value =""
             Matricular.update()
+            Separador.clear()
+            Matricular.controls = []
             page.update()
+        def Matriz_Random(e):
+            for control in Separador:
+                if isinstance(control, ft.Row):
+                    for txt in control.controls:
+                        if isinstance(txt, ft.TextField):
+                            txt.value = str(random.randint(1, 8))
+            Matricular.update()
             page.update()
-        
         Separador = []
         Matricular = ft.Column([])
+        
         def generar_matriz(e):
+            Separador.clear()
+            Matricular.controls = []
             v = tamano_Matriz.value[:-2]
             v = int(v)
             value = v
@@ -68,7 +85,7 @@ def main(page: Page):
             
             for i in range(n):
                 contenedores_filas = []
-                for j in range(n):
+                for j in range(n+1):
                     txt = ft.TextField(width=50, 
                                 color=ft.colors.BLACK,
                                 text_align=ft.TextAlign.CENTER)
@@ -77,7 +94,19 @@ def main(page: Page):
                 ft.Row(controls=contenedores_filas))
             page.update()
             Matricular.controls = Separador
+            print(Matricular)
             page.update()
+        
+        def Enviar_Matriz():
+            datos = []
+            for control in Matricular:
+                if isinstance(control, ft.Row):
+                    fila = []
+                    for txt in control.controls:
+                        if isinstance(txt, ft.TextField):
+                            fila.append(float(txt.value))
+                    datos.append(fila)
+            return datos
         
         entrada = ft.TextField(label='Ingrese un Numero')
         salida = ft.TextField(label='Salida',disabled=True)
@@ -99,6 +128,7 @@ def main(page: Page):
                         ft.dropdown.Option('Terceario'),
                         ft.dropdown.Option('Binario')
                         ],width=200,hint_text='Hexadecimal',label='A')
+
         
         if page.route == "/Traductor":
             page.views.append(
@@ -114,8 +144,8 @@ def main(page: Page):
                                 entrada,salida,
                                 ],alignment='center'),
                             ft.Row([
-                                ElevatedButton("Ramdon", on_click=lambda _: page.go("/Traductor")),
-                                ElevatedButton("Limpiar", on_click=Limpiar),
+                                ElevatedButton("Ramdon", on_click=Ramdon_sis),
+                                ElevatedButton("Limpiar", on_click=Limpiar_sis),
                                 ElevatedButton("Ejecutar", on_click=Click)
                             ],alignment='center'),
                     ],alignment='center',height=page.width/3)
@@ -126,21 +156,17 @@ def main(page: Page):
         page.update()
         
         tamano_Matriz = ft.Dropdown(options=[
-                        ft.dropdown.Option('1x1'),
                         ft.dropdown.Option('2x2'),
                         ft.dropdown.Option('3x3'),
                         ft.dropdown.Option('4x4'),
                         ft.dropdown.Option('5x5'),
                         ft.dropdown.Option('6x6'),
-                        ft.dropdown.Option('7x7'),
-                        ft.dropdown.Option('8x8'),
-                        ft.dropdown.Option('9x9'),
-                        ft.dropdown.Option('10x10')
+                        ft.dropdown.Option('7x7')
                         #Agregar mas opciones
-                        ],width=200,hint_text='2x2',label='Tamaño de la Matriz')
+                        ],width=200,label='Tamaño de la Matriz', on_change=generar_matriz)
         
         
-        num_matriz = ft.TextField(height = 50, width= 50, text_size=15, text_align=ft.TextAlign.CENTER)
+    
         
         
         if page.route == "/Gauss-Jordan":
@@ -157,9 +183,9 @@ def main(page: Page):
                                 Matricular
                                 ],alignment='center'),
                             ft.Row([
-                                ElevatedButton("Ramdon", on_click=lambda _: page.go("/Traductor")),
+                                ElevatedButton("Ramdon", on_click=Matriz_Random),
                                 ElevatedButton("Limpiar", on_click = Limpiar),
-                                ElevatedButton("Ejecutar", on_click = generar_matriz)
+                                ElevatedButton("Ejecutar", on_click=Enviar_Matriz)
                             ],alignment='center'),
                             
                     ],alignment='center')

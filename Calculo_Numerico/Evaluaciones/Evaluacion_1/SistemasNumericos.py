@@ -1,3 +1,5 @@
+import random
+
 class SistemasNumericos:
     def __init__(self, entrada, desde, hacia):
         self.entrada = entrada
@@ -129,7 +131,20 @@ class SistemasNumericos:
                 return decimal_cuaternario(a)
             elif self.hacia == 'Terceario':
                 return decimal_terceario(a)
-                
+    
+    def Ramdom(self):
+        if self.desde == 'Decimal':
+            return random.randint(0, 1000)
+        elif self.desde == 'Octal':
+            return random.choice('01234567') + random.choice('01234567') + random.choice('01234567')
+        elif self.desde == 'Cuaternario':
+            return random.choice('0123') + random.choice('0123') + random.choice('0123')
+        elif self.desde == 'Terceario':
+            return random.choice('012') + random.choice('012')
+        elif self.desde == 'Binario':
+            return random.choice('01') + random.choice('01') + random.choice('01') + random.choice('01')
+        elif self.desde == 'Hexadecimal':
+            return random.choice('0123456789ABCDEF') + random.choice('0123456789ABCDEF') + random.choice('0123456789ABCDEF') + random.choice('0123456789ABCDEF')
     
 
         
