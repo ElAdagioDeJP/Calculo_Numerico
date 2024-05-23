@@ -19,21 +19,21 @@ def main(page: Page):
         page.views.clear()
         page.views.append(
             View(
-                "/",
-                [
-                    AppBar(title=Text(f"Bienvenidos al Matematiqueitor NumericoGauseal "), bgcolor=colors.SURFACE_VARIANT),
-                    ft.Column([
-                        ft.Row([
-                            ft.Image('..\\Imagenes\\notstonk.jpg',width=250),
-                        ],alignment='center'),
-                        ft.Row([
-                            ElevatedButton("Traductor Numerico", on_click=lambda _: page.go("/Traductor")),
-                            ElevatedButton("Gauss-Jordan", on_click=lambda _: page.go("/Gauss-Jordan"))
-                        ],alignment='center')
-                    ],alignment='center',height=page.width/3)
-                   
-                    
-                ],horizontal_alignment= ft.alignment.bottom_center
+            "/",
+            [
+                AppBar(title=Text(f"Bienvenidos al Matematiqueitor NumericoGauseal ", size=24), bgcolor=colors.BLUE_200),
+                ft.Column([
+                ft.Row([
+                    ft.Image('..\\Imagenes\\Stonks.webp',width=250),
+                ],alignment='center'),
+                ft.Row([
+                    ElevatedButton("Traductor Numerico", on_click=lambda _: page.go("/Traductor")),
+                    ElevatedButton("Gauss-Jordan", on_click=lambda _: page.go("/Gauss-Jordan"))
+                ],alignment='center')
+                ],alignment='center',height=page.width/3)
+               
+                
+            ],horizontal_alignment= ft.alignment.bottom_center
             )
         )
         
@@ -62,6 +62,7 @@ def main(page: Page):
             Matricular.update()
             Separador.clear()
             Matricular.controls = []
+            fila_res.controls = []
             page.update()
         
         def Matriz_Random(e):
@@ -69,7 +70,7 @@ def main(page: Page):
                 if isinstance(control, ft.Row):
                     for txt in control.controls:
                         if isinstance(txt, ft.TextField):
-                            txt.value = str(random.randint(1, 8))
+                            txt.value = str(random.randint(1, 9))
             Matricular.update()
             page.update()
         Separador = []
@@ -82,7 +83,7 @@ def main(page: Page):
             v = int(v)
             value = v
             if not value or int(value) <= 0:
-                #v.value = ""
+                v.value = ""
                 return
             n = int(value)
             
@@ -91,14 +92,20 @@ def main(page: Page):
                 for j in range(n+1):
                     txt = ft.TextField(width=50, 
                                 color=ft.colors.BLACK,
-                                text_align=ft.TextAlign.CENTER)
+                                text_align=ft.TextAlign.CENTER,
+                                on_change=Validar_Matriz)
                     contenedores_filas.append(txt)
                 Separador.append(
                 ft.Row(controls=contenedores_filas))
             page.update()
             Matricular.controls = Separador
-            print(Matricular)
             page.update()
+        
+        def Validar_Matriz(e):
+            if not(e.control.value == ''):
+                if not(e.control.value[-1] in ['0','1','2','3','4','5','6','7','8','9']):
+                    e.control.value = e.control.value[0:len(e.control.value) - 1]
+                    e.control.update()
         
         def Enviar_Matriz(e):
             datos = []
@@ -113,14 +120,14 @@ def main(page: Page):
             gj.set_Matriz(datos)
             solucion = gj.gaussJordan()
             for i, value in enumerate(solucion, start=1):
-                text = ft.Text(f"X{i} = {round(value,2)}", color="black",)
-                fila_res.controls.append(text)
+                respuesta_matriz = ft.Text(f"X{i} = {round(value,2)}  ", size=16, color="black",)
+                fila_res.controls.append(respuesta_matriz)
             page.update()
             
         
         
         entrada = ft.TextField(label='Ingrese un Numero')
-        salida = ft.TextField(label='Salida',disabled=True)
+        salida = ft.TextField(label='Salida', disabled=True, color=ft.colors.BLACK)
         
         
 
@@ -148,7 +155,7 @@ def main(page: Page):
                 View(
                     "/Traductor",
                     [
-                        AppBar(title=Text("Traductor Numerico"), bgcolor=colors.SURFACE_VARIANT),
+                        AppBar(title=Text("Traductor Numerico",size=24), bgcolor=colors.BLUE_200),
                         ft.Column([
                             ft.Row([
                                 desde,hacia
@@ -163,7 +170,7 @@ def main(page: Page):
                             ],alignment='center'),
                     ],alignment='center',height=page.width/3)
                         
-                    ],
+                    ]
                 )
             )
         page.update()
@@ -179,16 +186,14 @@ def main(page: Page):
                         ],width=200,label='Tamaño de la Matriz', on_change=generar_matriz)
         
         
-        fila_res = ft.Row(spacing=10, 
-                                 alignment=ft.MainAxisAlignment.CENTER)
-        
+        fila_res = ft.Row(spacing=10, alignment=ft.MainAxisAlignment.CENTER)
         
         if page.route == "/Gauss-Jordan":
             page.views.append(
                 View(
                     "/Gauss-Jordan",
                     [
-                        AppBar(title=Text("Gauss-Jordan"), bgcolor=colors.SURFACE_VARIANT),
+                        AppBar(title=Text("Gauss-Jordan",size=24), bgcolor=colors.BLUE_200),
                         ft.Column([
                             ft.Row([
                                 tamano_Matriz

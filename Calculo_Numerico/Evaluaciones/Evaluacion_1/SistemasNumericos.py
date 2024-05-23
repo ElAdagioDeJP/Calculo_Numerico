@@ -2,10 +2,10 @@ import random
 
 class SistemasNumericos:
     def __init__(self, entrada, desde, hacia):
-        self.entrada = entrada
+        self.entrada = entrada.upper()
         self.desde = desde
         self.hacia = hacia
-
+        
     def Comprobacion(self):
         if self.desde == 'Hexadecimal':
             for i in self.entrada:
@@ -42,110 +42,118 @@ class SistemasNumericos:
             return False
         else:
             return True
-
+        
     def Resolver(self):
-        def decimal_terceario(a,ls = []):
-            while a > 0:
-                ls.append(a % 3)
-                a = a // 3
-            return ''.join(map(str, ls[::-1]))
-        def decimal_cuaternario(a,ls = []):
-            while a > 0:
-                ls.append(a % 4)
-                a = a // 4
-            return ''.join(map(str, ls[::-1]))
+        if self.set_validacion() == True:
+            def decimal_terceario(a,ls = []):
+                while a > 0:
+                    ls.append(a % 3)
+                    a = a // 3
+                return ''.join(map(str, ls[::-1]))
+            def decimal_cuaternario(a,ls = []):
+                while a > 0:
+                    ls.append(a % 4)            
+                    a = a // 4
+                return ''.join(map(str, ls[::-1]))
         
-        if self.desde == 'Hexadecimal':
-            a = int(self.entrada, 16)
-            if self.hacia == 'Decimal':
-                return a
-            elif self.hacia == 'Octal':
-                return oct(a)[2:]
-            elif self.hacia == 'Cuaternario':
-                return decimal_cuaternario(a)
-            elif self.hacia == 'Terceario':
-                return decimal_terceario(a)
-            elif self.hacia == 'Binario':
-                return bin(a)[2:]
+            if self.desde == 'Hexadecimal':
+                a = int(self.entrada, 16)
+                if self.hacia == 'Decimal':
+                    return a
+                elif self.hacia == 'Octal':
+                    return oct(a)[2:]
+                elif self.hacia == 'Cuaternario':
+                    return decimal_cuaternario(a)
+                elif self.hacia == 'Terceario':
+                    return decimal_terceario(a)
+                elif self.hacia == 'Binario':
+                    return bin(a)[2:]
+
+            elif self.desde == 'Decimal':
+                if self.hacia == 'Hexadecimal':
+                    return hex(int(self.entrada))[2:]
+                elif self.hacia == 'Octal':
+                    return oct(int(self.entrada))[2:]
+                elif self.hacia == 'Cuaternario':
+                    return decimal_cuaternario(int(self.entrada))
+                elif self.hacia == 'Terceario':
+                    return decimal_terceario(int(self.entrada))
+                elif self.hacia == 'Binario':
+                    return bin(int(self.entrada))[2:]
             
-        elif self.desde == 'Decimal':
-            if self.hacia == 'Hexadecimal':
-                return hex(int(self.entrada))[2:]
-            elif self.hacia == 'Octal':
-                return oct(int(self.entrada))[2:]
-            elif self.hacia == 'Cuaternario':
-                return decimal_cuaternario(int(self.entrada))
-            elif self.hacia == 'Terceario':
-                return decimal_terceario(int(self.entrada))
-            elif self.hacia == 'Binario':
-                return bin(int(self.entrada))[2:]
-            
-        elif self.desde == 'Octal':
-            a = int(self.entrada, 8)
-            if self.hacia == 'Hexadecimal':
-                return hex(a)[2:]
-            elif self.hacia == 'Decimal':
-                return a
-            elif self.hacia == 'Cuaternario':
-                return decimal_cuaternario(a)
-            elif self.hacia == 'Terceario':
-                return decimal_terceario(a)
-            elif self.hacia == 'Binario':
-                return bin(a)[2:]
+            elif self.desde == 'Octal':
+                a = int(self.entrada, 8)
+                if self.hacia == 'Hexadecimal':
+                    return hex(a)[2:]
+                elif self.hacia == 'Decimal':
+                    return a
+                elif self.hacia == 'Cuaternario':
+                    return decimal_cuaternario(a)
+                elif self.hacia == 'Terceario':
+                    return decimal_terceario(a)
+                elif self.hacia == 'Binario':
+                    return bin(a)[2:]
         
-        elif self.desde == 'Cuaternario':
-            a = int(self.entrada, 4)
-            if self.hacia == 'Hexadecimal':
-                return hex(a)[2:]
-            elif self.hacia == 'Decimal':
-                return a
-            elif self.hacia == 'Octal':
-                return oct(a)[2:]
-            elif self.hacia == 'Terceario':
-                return decimal_terceario(a)
-            elif self.hacia == 'Binario':
-                return bin(a)[2:]
+            elif self.desde == 'Cuaternario':                           
+                a = int(self.entrada, 4)
+                if self.hacia == 'Hexadecimal':
+                    return hex(a)[2:]
+                elif self.hacia == 'Decimal':
+                    return a
+                elif self.hacia == 'Octal':
+                    return oct(a)[2:]
+                elif self.hacia == 'Terceario':
+                    return decimal_terceario(a)
+                elif self.hacia == 'Binario':
+                    return bin(a)[2:]
         
-        elif self.desde == 'Terceario':
-            a = int(self.entrada, 3)
-            if self.hacia == 'Hexadecimal':
-                return hex(a)[2:]
-            elif self.hacia == 'Decimal':
-                return a
-            elif self.hacia == 'Octal':
-                return oct(a)[2:]
-            elif self.hacia == 'Cuaternario':
-                return decimal_cuaternario(a)
-            elif self.hacia == 'Binario':
-                return bin(a)[2:]
+            elif self.desde == 'Terceario':
+                a = int(self.entrada, 3)
+                if self.hacia == 'Hexadecimal':
+                    return hex(a)[2:]
+                elif self.hacia == 'Decimal':
+                    return a
+                elif self.hacia == 'Octal':
+                    return oct(a)[2:]
+                elif self.hacia == 'Cuaternario':
+                    return decimal_cuaternario(a)
+                elif self.hacia == 'Binario':
+                        return bin(a)[2:]
         
-        elif self.desde == 'Binario':
-            a = int(self.entrada, 2)
-            if self.hacia == 'Hexadecimal':
-                return hex(a)[2:]
-            elif self.hacia == 'Octal':
-                return oct(a)[2:]
-            elif self.hacia == 'Decimal':
-                return a
-            elif self.hacia == 'Cuaternario':
-                return decimal_cuaternario(a)
-            elif self.hacia == 'Terceario':
-                return decimal_terceario(a)
+            elif self.desde == 'Binario':
+                a = int(self.entrada, 2)
+                if self.hacia == 'Hexadecimal':
+                    return hex(a)[2:]
+                elif self.hacia == 'Octal':
+                    return oct(a)[2:]
+                elif self.hacia == 'Decimal':
+                    return a
+                elif self.hacia == 'Cuaternario':
+                    return decimal_cuaternario(a)
+                elif self.hacia == 'Terceario':
+                    return decimal_terceario(a)
+            elif self.set_validacion() == False:
+                return 'Número no válido'
+        else:
+            return 'Número no válido'
+    
     
     def Ramdom(self):
-        if self.desde == 'Decimal':
-            return random.randint(0, 1000)
-        elif self.desde == 'Octal':
-            return random.choice('01234567') + random.choice('01234567') + random.choice('01234567')
-        elif self.desde == 'Cuaternario':
-            return random.choice('0123') + random.choice('0123') + random.choice('0123')
-        elif self.desde == 'Terceario':
-            return random.choice('012') + random.choice('012')
-        elif self.desde == 'Binario':
-            return random.choice('01') + random.choice('01') + random.choice('01') + random.choice('01')
-        elif self.desde == 'Hexadecimal':
-            return random.choice('0123456789ABCDEF') + random.choice('0123456789ABCDEF') + random.choice('0123456789ABCDEF') + random.choice('0123456789ABCDEF')
-    
+        if self.set_validacion() == True:
+            if self.desde == 'Decimal':
+                return random.randint(0, 1000)
+            elif self.desde == 'Octal':
+                return random.choice('01234567') + random.choice('01234567') + random.choice('01234567')
+            elif self.desde == 'Cuaternario':
+                return random.choice('0123') + random.choice('0123') + random.choice('0123')
+            elif self.desde == 'Terceario':
+                return random.choice('012') + random.choice('012')
+            elif self.desde == 'Binario':
+                return random.choice('01') + random.choice('01') + random.choice('01') + random.choice('01')
+            elif self.desde == 'Hexadecimal':
+                return random.choice('0123456789ABCDEF') + random.choice('0123456789ABCDEF') + random.choice('0123456789ABCDEF') + random.choice('0123456789ABCDEF')
+        else:
+            return 'Número no válido'
 
         
     

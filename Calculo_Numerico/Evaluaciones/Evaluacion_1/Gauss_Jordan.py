@@ -6,13 +6,10 @@ class Gauss_Jordan:
         self.b = ''
         self.matriz = []
     def set_Matriz(self, a):
-        print(a)
         self.matriz = a
         self.a = np.array(a)
         self.b = self.a[:, -1]
         self.a = self.a[:, :-1]
-        print(self.a)
-        print(self.b)
         return self.a, self.b
 
 
@@ -27,28 +24,4 @@ class Gauss_Jordan:
         x=np.zeros(n)
         for i in range(n):
             x[i]=A[i,n]/A[i,i]
-        print(x)
         return x
-"""
-    def main(self):
-        n,c=np.shape(self.a)
-        r=np.linalg.matrix_rank(self.a)
-        ab=np.c_[self.a,self.b]
-        ra=np.linalg.matrix_rank(ab)
-
-        print('rango (A) ={} rango (Ab) ={} n ={}'.format(r, ra, n))
-
-        if (r == ra == n):
-            print('solución única')
-        x= self.gaussJordan()
-        print(x)
-
-        if (r == ra < n):
-            print('múltiples soluciones')
-
-        if (r < ra):
-            print('sin solución')
-
-    if __name__ == "__main__": 
-        main()"""
-
