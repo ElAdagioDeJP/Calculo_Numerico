@@ -2,7 +2,7 @@ import random
 
 class SistemasNumericos:
     def __init__(self, entrada, desde, hacia):
-        self.entrada = entrada.upper()
+        self.entrada = entrada
         self.desde = desde
         self.hacia = hacia
         
