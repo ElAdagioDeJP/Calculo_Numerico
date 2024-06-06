@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 # Generar una matriz aleatoria
-A = np.random.rand(5,5)
+A = np.random.rand(2,2)
 
 # Crear una malla de coordenadas
 x = np.arange(A.shape[1])
