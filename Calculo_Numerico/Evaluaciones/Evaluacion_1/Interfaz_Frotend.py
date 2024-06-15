@@ -164,7 +164,7 @@ def main(page: Page):
                                 entrada,salida,
                                 ],alignment='center'),
                             ft.Row([
-                                ElevatedButton("Ramdon", on_click=Ramdon_sis),
+                                ElevatedButton("Random", on_click=Ramdon_sis),
                                 ElevatedButton("Limpiar", on_click=Limpiar_sis),
                                 ElevatedButton("Ejecutar", on_click=Click)
                             ],alignment='center'),
@@ -203,7 +203,7 @@ def main(page: Page):
                                 ],alignment='center'),
                             fila_res,
                             ft.Row([
-                                ElevatedButton("Ramdon", on_click=Matriz_Random),
+                                ElevatedButton("Random", on_click=Matriz_Random),
                                 ElevatedButton("Limpiar", on_click = Limpiar),
                                 ElevatedButton("Ejecutar", on_click=Enviar_Matriz)
                             ],alignment='center'),
